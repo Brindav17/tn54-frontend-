@@ -46,10 +46,10 @@ tn54-frontend/
 │   │   ├── Navbar.jsx
 │   │   └── UploadDropzone.jsx
 │   ├── pages/
-│   │   ├── LandingPage.jsx      # Member 1
-│   │   ├── AboutPage.jsx        # Member 2
-│   │   ├── ResultsPage.jsx      # Member 3
-│   │   └── DashboardPage.jsx    # Member 4
+│   │   ├── LandingPage.jsx      
+│   │   ├── AboutPage.jsx        
+│   │   ├── ResultsPage.jsx      
+│   │   └── DashboardPage.jsx    
 │   ├── App.jsx
 │   └── index.css
 ├── tailwind.config.js
