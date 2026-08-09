@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0A1220;
+  --color-panel: #111D30;
+  --color-panel2: #16233A;
+  --color-cyan: #5EE1E6;
+  --color-coral: #FF6F59;
+  --color-mint: #63E6A0;
+  --color-paper: #EAF1F5;
+  --color-muted: #7E93AC;
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  --animate-sweep: sweep 3.2s ease-in-out infinite;
+  --animate-pulse-slow: pulse 2s infinite;
+}
+
+@keyframes sweep {
+  0%   { top: 6%;  opacity: 0; }
+  10%  { opacity: 0.9; }
+  50%  { top: 94%; opacity: 0.9; }
+  60%  { opacity: 0; }
+  100% { top: 6%;  opacity: 0; }
+}
+
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(99,230,160,.5); }
+  70%  { box-shadow: 0 0 0 8px rgba(99,230,160,0); }
+  100% { box-shadow: 0 0 0 0 rgba(99,230,160,0); }
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-body);
+}
+
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(94, 225, 230, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(94, 225, 230, 0.05) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
