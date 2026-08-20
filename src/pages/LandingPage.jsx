@@ -1,12 +1,24 @@
-import React from "react";
-import Navbar from "../components/Navbar";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import UploadDropzone from "../components/UploadDropzone";
+import { predict, PredictionError } from "../lib/api";
 
-export default function LandingPage({ onAnalyze }) {
+export default function LandingPage() {
+  const navigate = useNavigate();
+  const [error, setError] = useState(null);
+
+  const handleAnalyze = async (file) => {
+    setError(null);
+    try {
+      const result = await predict(file);
+      navigate("/results", { state: { result, previewUrl: URL.createObjectURL(file) } });
+    } catch (err) {
+      setError(err instanceof PredictionError ? err.message : "Something went wrong analyzing this image.");
+    }
+  };
+
   return (
-    <div className="min-h-screen">
-      <Navbar />
-
+    <div>
       {/* HERO */}
       <section className="grid-bg border-b border-white/5">
         <div className="max-w-6xl mx-auto px-6 py-16 md:py-24 grid md:grid-cols-2 gap-12 items-center">
@@ -15,7 +27,7 @@ export default function LandingPage({ onAnalyze }) {
               <span className="w-1.5 h-1.5 rounded-full bg-mint animate-pulse-slow" />
               ULTRASOUND · AI-ASSISTED · EXPLAINABLE
             </div>
-            <h1 className="font-display text-4xl md:text-5xl font-semibold leading-[1.1] mb-5">
+            <h1 className="font-display text-4xl md:text-5xl font-medium leading-[1.1] mb-5">
               Upload a scan.
               <br />
               Get a reading — <span className="text-cyan">and see why.</span>
@@ -32,18 +44,28 @@ export default function LandingPage({ onAnalyze }) {
             </div>
           </div>
 
-          <UploadDropzone onAnalyze={onAnalyze} />
+          <div>
+            <UploadDropzone onAnalyze={handleAnalyze} />
+            <p className="text-xs text-amber-300/80 font-mono mt-3">
+              Note: this demo expects an already-cropped nodule ROI image (like the samples
+              in TN5000's test crops), not a full raw ultrasound frame — the model was trained
+              on cropped nodule patches.
+            </p>
+            {error && (
+              <p className="text-xs text-red-400 font-mono mt-2" role="alert">{error}</p>
+            )}
+          </div>
         </div>
       </section>
 
       {/* PIPELINE */}
       <section className="max-w-6xl mx-auto px-6 py-16">
         <p className="font-mono text-xs text-cyan mb-2">HOW IT WORKS</p>
-        <h2 className="font-display text-2xl font-semibold mb-10">
+        <h2 className="font-display text-2xl font-medium mb-10">
           From image to interpretable diagnosis, in three passes.
         </h2>
         <div className="grid md:grid-cols-3 gap-6">
-          <Step n="01" title="Upload & preprocess" desc="The scan is cropped to its region of interest and resized to 224×224 to match ImageNet preprocessing standards." />
+          <Step n="01" title="Upload & preprocess" desc="A cropped nodule ROI image is resized to 224×224 and normalized to match ImageNet preprocessing standards." />
           <Step n="02" title="Classify" desc="A regularized ResNet-54 backbone predicts benign or malignant with a confidence score." />
           <Step n="03" title="Explain" desc="Grad-CAM highlights the region driving the decision; Integrated Gradients attributes it down to the pixel." />
         </div>
@@ -51,7 +73,7 @@ export default function LandingPage({ onAnalyze }) {
 
       <footer className="border-t border-white/5">
         <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row justify-between gap-2 text-xs font-mono text-muted">
-          <span>TN·54 — Ultrasound Thyroid Nodule Classification, RV University</span>
+          <span>TN-54 — Ultrasound Nodule Classifier, RV University</span>
           <span>TN5000 dataset · ResNet-54 · Grad-CAM · Integrated Gradients</span>
         </div>
       </footer>

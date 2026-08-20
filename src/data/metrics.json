@@ -1,0 +1,26 @@
+{
+  "comparisonTable": [
+    { "metric": "Test Accuracy", "regularized": "87.05%", "unregularized": "86.95%", "difference": "+0.1%" },
+    { "metric": "Precision", "regularized": "87.45%", "unregularized": "90.01%", "difference": "-2.56%" },
+    { "metric": "Val Accuracy", "regularized": "91.82%", "unregularized": "92.8%", "difference": "-0.98%" },
+    { "metric": "Val-Test Gap", "regularized": "4.75%", "unregularized": "5.95%", "difference": "-1.2%" },
+    { "metric": "Recall", "regularized": "96.04%", "unregularized": "92.22%", "difference": "+3.82%" },
+    { "metric": "F1-Score", "regularized": "91.55%", "unregularized": "91.11%", "difference": "+0.44%" },
+    { "metric": "AUC-ROC", "regularized": "90.19%", "unregularized": "90.70%", "difference": "-0.51%" },
+    { "metric": "Sensitivity", "regularized": "96.04%", "unregularized": "92.22%", "difference": "+3.82%" }
+  ],
+  "confusionMatrix": {
+    "labels": ["Benign", "Malignant"],
+    "matrix": [
+      [170, 101],
+      [29, 704]
+    ],
+    "totalTestSamples": 1004
+  },
+  "headline": {
+    "valAccuracy": 0.9182,
+    "f1Score": 0.9155,
+    "sensitivity": 0.9604,
+    "aucRoc": 0.9019
+  }
+}
