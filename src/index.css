@@ -38,6 +38,8 @@ body {
   background: var(--color-ink);
   color: var(--color-paper);
   font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
 .grid-bg {

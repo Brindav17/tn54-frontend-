@@ -1,12 +1,9 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 
 /**
- * Upload interface for an ultrasound scan.
- *
- * This component only handles getting an image from the user and previewing it.
- * It does NOT call the model. Pass an `onAnalyze(file)` prop from a parent route
- * (owned by the prediction/XAI module) to POST the file to the Flask backend
- * and navigate to the results view.
+ * Upload interface for a (pre-cropped) nodule ROI ultrasound image.
+ * Handles selection/preview locally; the actual POST to the Flask backend
+ * and navigation to the results view happens in the `onAnalyze(file)` prop.
  */
 export default function UploadDropzone({ onAnalyze }) {
   const [file, setFile] = useState(null);
@@ -71,7 +68,7 @@ export default function UploadDropzone({ onAnalyze }) {
             <button
               type="button"
               onClick={(e) => { e.stopPropagation(); inputRef.current?.click(); }}
-              className="font-mono text-xs px-4 py-2 rounded-lg bg-cyan text-ink font-semibold hover:opacity-90 transition"
+              className="font-mono text-xs px-4 py-2 rounded-lg bg-cyan text-ink font-medium hover:opacity-90 transition"
             >
               Browse files
             </button>
@@ -92,7 +89,7 @@ export default function UploadDropzone({ onAnalyze }) {
                 type="button"
                 onClick={(e) => { e.stopPropagation(); handleAnalyzeClick(); }}
                 disabled={analyzing}
-                className="font-mono text-xs px-4 py-2 rounded-lg bg-cyan text-ink font-semibold hover:opacity-90 transition disabled:opacity-60"
+                className="font-mono text-xs px-4 py-2 rounded-lg bg-cyan text-ink font-medium hover:opacity-90 transition disabled:opacity-60"
               >
                 {analyzing ? "Sending to model…" : "Run analysis"}
               </button>
@@ -108,7 +105,7 @@ export default function UploadDropzone({ onAnalyze }) {
         )}
       </div>
       <p className="text-xs text-muted font-mono mt-3 text-center">
-        Analysis is handled by the classification module — this screen only prepares the image.
+        Sends the image to the ResNet-54 backend for a live prediction and dual XAI overlays.
       </p>
     </div>
   );
