@@ -2,13 +2,19 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UploadDropzone from "../components/UploadDropzone";
 import { predict, PredictionError } from "../lib/api";
+import { useAuth } from "../lib/auth-context";
 
 export default function LandingPage() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [error, setError] = useState(null);
 
   const handleAnalyze = async (file) => {
     setError(null);
+    if (!user) {
+      navigate("/login", { state: { from: "/" } });
+      return;
+    }
     try {
       const result = await predict(file);
       navigate("/results", { state: { result, previewUrl: URL.createObjectURL(file) } });

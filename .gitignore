@@ -17,11 +17,17 @@ dist-ssr
 .env.local
 .env.production
 
-# Backend (Python / model weights)
+# Backend (Python -- regenerable via `pip install -r requirements.txt`)
 backend/venv
 backend/__pycache__
 backend/**/__pycache__
-backend/weights/*.pth
+
+# Model weights are committed (via Git LFS, see .gitattributes) so the app
+# is runnable out of the box -- do not re-ignore backend/weights/*.pth.
+
+# Backend (database / uploaded & generated images)
+backend/*.db
+backend/storage/
 
 # Dataset
 /TN5000_crops

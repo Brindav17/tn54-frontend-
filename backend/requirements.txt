@@ -5,3 +5,10 @@ torchvision
 captum
 pillow
 numpy
+flask-sqlalchemy
+flask-migrate
+flask-jwt-extended
+bcrypt
+google-auth
+python-dotenv
+psycopg2-binary
